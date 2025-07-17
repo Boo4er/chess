@@ -1,12 +1,14 @@
-package org.example;
+package org.example.board;
 
-import org.example.piece.Pawn;
+import org.example.Coordinates;
+import org.example.File;
+import org.example.PieceFactory;
 
 public class BoardFactory {
     private PieceFactory pieceFactory = new PieceFactory();
+
     public Board fromFen(String fen) {
-        Board board = new Board();
-        // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+        Board board = new Board(fen);
         String[] parts = fen.split(" ");
         String piecePositions = parts[0];
         String[] fenRows = piecePositions.split("/");
@@ -30,5 +32,14 @@ public class BoardFactory {
 
         }
         return board;
+    }
+
+    public Board copy(Board source) {
+        Board clone = fromFen(source.startingFen);
+
+        for (Move move : source.moves) {
+            clone.makeMove(move);
+        }
+        return clone;
     }
 }

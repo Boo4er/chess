@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.board.Board;
 import org.example.piece.Piece;
 
 import java.util.Set;
